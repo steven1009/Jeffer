@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="FerreteriaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="FerreteriaDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Cargo">
           <Key>
             <PropertyRef Name="IdCargo" />
@@ -20,22 +20,26 @@
           <Property Name="Nombre" Type="nvarchar" MaxLength="60" Nullable="false" />
           <Property Name="Descripcion" Type="nvarchar" MaxLength="256" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'FerreteriaDB.dbo.DetalleEstado' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
         <EntityType Name="DetalleEstado">
+          <Key>
+            <PropertyRef Name="idDetalleEstado" />
+          </Key>
+          <Property Name="idDetalleEstado" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdEstado" Type="int" />
           <Property Name="FechaInicio" Type="datetime" />
           <Property Name="FechaFIN" Type="datetime" />
           <Property Name="idEmpleado" Type="int" />
-        </EntityType>-->
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'FerreteriaDB.dbo.DetalleEstadoUsuario' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
+        </EntityType>
         <EntityType Name="DetalleEstadoUsuario">
+          <Key>
+            <PropertyRef Name="IdDetalleEstadoUsuario" />
+          </Key>
+          <Property Name="IdDetalleEstadoUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdEstado" Type="int" />
           <Property Name="FechaInicio" Type="datetime" />
           <Property Name="FechaFIN" Type="datetime" />
           <Property Name="idUsuario" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="DetalleProvProd">
           <Key>
             <PropertyRef Name="IdDetalleProvProd" />
@@ -45,13 +49,15 @@ advertencia 6013: La tabla o vista 'FerreteriaDB.dbo.DetalleEstadoUsuario' no ti
           <Property Name="IdPersona" Type="int" />
           <Property Name="IdProducto" Type="int" />
         </EntityType>
-        <!--Errores durante la generación:
-advertencia 6013: La tabla o vista 'FerreteriaDB.dbo.DetalleRoles' no tiene definida una clave principal y no es posible inferir ninguna clave principal válida. Esta tabla o vista se ha excluido. Para usar la entidad, necesitará revisar el esquema, agregar las claves correctas y quitar sus comentarios.
         <EntityType Name="DetalleRoles">
+          <Key>
+            <PropertyRef Name="Id_DetalleRoles" />
+          </Key>
+          <Property Name="Id_DetalleRoles" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="IdUsuario" Type="int" />
           <Property Name="FechaMOD" Type="date" />
           <Property Name="IdRoles" Type="int" />
-        </EntityType>-->
+        </EntityType>
         <EntityType Name="DetalleVenta">
           <Key>
             <PropertyRef Name="IdDetalleV" />
@@ -169,7 +175,7 @@ advertencia 6013: La tabla o vista 'FerreteriaDB.dbo.DetalleRoles' no tiene defi
           <Property Name="idPersona" Type="int" Nullable="false" />
           <Property Name="idEmpleado" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="FK__USUARIO_L__idPer__619B8048">
+        <Association Name="FK__USUARIO_L__idPer__4F7CD00D">
           <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
           <End Role="USUARIO_LOGIN" Type="Self.USUARIO_LOGIN" Multiplicity="*" />
           <ReferentialConstraint>
@@ -205,18 +211,54 @@ advertencia 6013: La tabla o vista 'FerreteriaDB.dbo.DetalleRoles' no tiene defi
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errores durante la generación:
-error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleEstado', pero no se encuentra la tabla.
-        <Association Name="fk_estado" />-->
-        <!--Errores durante la generación:
-error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleEstado', pero no se encuentra la tabla.
-        <Association Name="fk_estadoemp" />-->
-        <!--Errores durante la generación:
-error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleEstadoUsuario', pero no se encuentra la tabla.
-        <Association Name="fk_estadoU" />-->
-        <!--Errores durante la generación:
-error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleEstadoUsuario', pero no se encuentra la tabla.
-        <Association Name="fk_estadoUsuario" />-->
+        <Association Name="fk_estado">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="DetalleEstado" Type="Self.DetalleEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DetalleEstado">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estadoemp">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="DetalleEstado" Type="Self.DetalleEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="DetalleEstado">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estadoU">
+          <End Role="Estado" Type="Self.Estado" Multiplicity="0..1" />
+          <End Role="DetalleEstadoUsuario" Type="Self.DetalleEstadoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DetalleEstadoUsuario">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estadoUsuario">
+          <End Role="USUARIO_LOGIN" Type="Self.USUARIO_LOGIN" Multiplicity="0..1" />
+          <End Role="DetalleEstadoUsuario" Type="Self.DetalleEstadoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO_LOGIN">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DetalleEstadoUsuario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_Factura">
           <End Role="Factura" Type="Self.Factura" Multiplicity="0..1" />
           <End Role="DetalleVenta" Type="Self.DetalleVenta" Multiplicity="*" />
@@ -313,12 +355,30 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleEs
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <!--Errores durante la generación:
-error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRoles', pero no se encuentra la tabla.
-        <Association Name="fk_Roles" />-->
-        <!--Errores durante la generación:
-error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRoles', pero no se encuentra la tabla.
-        <Association Name="fk_RolesU" />-->
+        <Association Name="fk_Roles">
+          <End Role="USUARIO_LOGIN" Type="Self.USUARIO_LOGIN" Multiplicity="0..1" />
+          <End Role="DetalleRoles" Type="Self.DetalleRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO_LOGIN">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DetalleRoles">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RolesU">
+          <End Role="Roles" Type="Self.Roles" Multiplicity="0..1" />
+          <End Role="DetalleRoles" Type="Self.DetalleRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRoles" />
+            </Principal>
+            <Dependent Role="DetalleRoles">
+              <PropertyRef Name="IdRoles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_TipoPago">
           <End Role="TipoPago" Type="Self.TipoPago" Multiplicity="0..1" />
           <End Role="Factura" Type="Self.Factura" Multiplicity="*" />
@@ -355,10 +415,17 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Function Name="UserPassword" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="usuario" Type="nvarchar" Mode="In" />
+          <Parameter Name="password" Type="nvarchar" Mode="In" />
+        </Function>
         <EntityContainer Name="FerreteriaDBModelStoreContainer">
           <EntitySet Name="Cargo" EntityType="Self.Cargo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleEstado" EntityType="Self.DetalleEstado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleEstadoUsuario" EntityType="Self.DetalleEstadoUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleProvProd" EntityType="Self.DetalleProvProd" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleRoles" EntityType="Self.DetalleRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DetalleVenta" EntityType="Self.DetalleVenta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Estado" EntityType="Self.Estado" Schema="dbo" store:Type="Tables" />
@@ -371,7 +438,7 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
           <EntitySet Name="TipoPago" EntityType="Self.TipoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="USUARIO_LOGIN" EntityType="Self.USUARIO_LOGIN" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ventas" EntityType="Self.Ventas" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__USUARIO_L__idPer__619B8048" Association="Self.FK__USUARIO_L__idPer__619B8048">
+          <AssociationSet Name="FK__USUARIO_L__idPer__4F7CD00D" Association="Self.FK__USUARIO_L__idPer__4F7CD00D">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="USUARIO_LOGIN" EntitySet="USUARIO_LOGIN" />
           </AssociationSet>
@@ -382,6 +449,22 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
           <AssociationSet Name="fk_Categoria" Association="Self.fk_Categoria">
             <End Role="Categoria" EntitySet="Categoria" />
             <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estado" Association="Self.fk_estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="DetalleEstado" EntitySet="DetalleEstado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estadoemp" Association="Self.fk_estadoemp">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="DetalleEstado" EntitySet="DetalleEstado" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estadoU" Association="Self.fk_estadoU">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="DetalleEstadoUsuario" EntitySet="DetalleEstadoUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estadoUsuario" Association="Self.fk_estadoUsuario">
+            <End Role="USUARIO_LOGIN" EntitySet="USUARIO_LOGIN" />
+            <End Role="DetalleEstadoUsuario" EntitySet="DetalleEstadoUsuario" />
           </AssociationSet>
           <AssociationSet Name="fk_Factura" Association="Self.fk_Factura">
             <End Role="Factura" EntitySet="Factura" />
@@ -415,6 +498,14 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <AssociationSet Name="fk_Roles" Association="Self.fk_Roles">
+            <End Role="USUARIO_LOGIN" EntitySet="USUARIO_LOGIN" />
+            <End Role="DetalleRoles" EntitySet="DetalleRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RolesU" Association="Self.fk_RolesU">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="DetalleRoles" EntitySet="DetalleRoles" />
+          </AssociationSet>
           <AssociationSet Name="fk_TipoPago" Association="Self.fk_TipoPago">
             <End Role="TipoPago" EntitySet="TipoPago" />
             <End Role="Factura" EntitySet="Factura" />
@@ -428,8 +519,7 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
             <End Role="DetalleVenta" EntitySet="DetalleVenta" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="FerreteriaDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -488,6 +578,7 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
           <NavigationProperty Name="Cargo" Relationship="Self.fk_Cargo" FromRole="Empleado" ToRole="Cargo" />
           <NavigationProperty Name="Persona" Relationship="Self.fk_PersonaE" FromRole="Empleado" ToRole="Persona" />
           <NavigationProperty Name="Ventas" Relationship="Self.fk_Vendedor" FromRole="Empleado" ToRole="Ventas" />
+          <NavigationProperty Name="DetalleEstadoes" Relationship="FerreteriaDBModel.fk_estadoemp" FromRole="Empleado" ToRole="DetalleEstado" />
         </EntityType>
         <EntityType Name="Estado">
           <Key>
@@ -495,6 +586,8 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
           </Key>
           <Property Name="IdEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Estado1" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetalleEstadoes" Relationship="FerreteriaDBModel.fk_estado" FromRole="Estado" ToRole="DetalleEstado" />
+          <NavigationProperty Name="DetalleEstadoUsuarios" Relationship="FerreteriaDBModel.fk_estadoU" FromRole="Estado" ToRole="DetalleEstadoUsuario" />
         </EntityType>
         <EntityType Name="Factura">
           <Key>
@@ -569,6 +662,7 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
           </Key>
           <Property Name="IdRoles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="DetalleRoles" Relationship="FerreteriaDBModel.fk_RolesU" FromRole="Roles" ToRole="DetalleRole" />
         </EntityType>
         <EntityType Name="TipoPago">
           <Key>
@@ -588,6 +682,8 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
           <Property Name="Contraseña" Type="String" MaxLength="60" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="idPersona" Type="Int32" />
           <NavigationProperty Name="Persona" Relationship="Self.FK__USUARIO_L__idPer__619B8048" FromRole="USUARIO_LOGIN" ToRole="Persona" />
+          <NavigationProperty Name="DetalleEstadoUsuarios" Relationship="FerreteriaDBModel.fk_estadoUsuario" FromRole="USUARIO_LOGIN" ToRole="DetalleEstadoUsuario" />
+          <NavigationProperty Name="DetalleRoles" Relationship="FerreteriaDBModel.fk_Roles" FromRole="USUARIO_LOGIN" ToRole="DetalleRole" />
         </EntityType>
         <EntityType Name="Ventas">
           <Key>
@@ -842,7 +938,145 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
             <End Role="proveedores" EntitySet="proveedores" />
             <End Role="Producto" EntitySet="Producto" />
           </AssociationSet>
+          <FunctionImport Name="UserPassword" ReturnType="Collection(Int32)">
+            <Parameter Name="usuario" Mode="In" Type="String" />
+            <Parameter Name="password" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="DetalleEstadoes" EntityType="FerreteriaDBModel.DetalleEstado" />
+          <EntitySet Name="DetalleEstadoUsuarios" EntityType="FerreteriaDBModel.DetalleEstadoUsuario" />
+          <EntitySet Name="DetalleRoles" EntityType="FerreteriaDBModel.DetalleRole" />
+          <AssociationSet Name="fk_estado" Association="FerreteriaDBModel.fk_estado">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="DetalleEstado" EntitySet="DetalleEstadoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estadoemp" Association="FerreteriaDBModel.fk_estadoemp">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="DetalleEstado" EntitySet="DetalleEstadoes" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estadoU" Association="FerreteriaDBModel.fk_estadoU">
+            <End Role="Estado" EntitySet="Estado" />
+            <End Role="DetalleEstadoUsuario" EntitySet="DetalleEstadoUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_estadoUsuario" Association="FerreteriaDBModel.fk_estadoUsuario">
+            <End Role="USUARIO_LOGIN" EntitySet="USUARIO_LOGIN" />
+            <End Role="DetalleEstadoUsuario" EntitySet="DetalleEstadoUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="fk_Roles" Association="FerreteriaDBModel.fk_Roles">
+            <End Role="USUARIO_LOGIN" EntitySet="USUARIO_LOGIN" />
+            <End Role="DetalleRole" EntitySet="DetalleRoles" />
+          </AssociationSet>
+          <AssociationSet Name="fk_RolesU" Association="FerreteriaDBModel.fk_RolesU">
+            <End Role="Roles" EntitySet="Roles" />
+            <End Role="DetalleRole" EntitySet="DetalleRoles" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="DetalleEstado">
+          <Key>
+            <PropertyRef Name="idDetalleEstado" />
+          </Key>
+          <Property Name="idDetalleEstado" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="3" />
+          <Property Name="FechaFIN" Type="DateTime" Precision="3" />
+          <Property Name="idEmpleado" Type="Int32" />
+          <NavigationProperty Name="Estado" Relationship="FerreteriaDBModel.fk_estado" FromRole="DetalleEstado" ToRole="Estado" />
+          <NavigationProperty Name="Empleado" Relationship="FerreteriaDBModel.fk_estadoemp" FromRole="DetalleEstado" ToRole="Empleado" />
+        </EntityType>
+        <EntityType Name="DetalleEstadoUsuario">
+          <Key>
+            <PropertyRef Name="IdDetalleEstadoUsuario" />
+          </Key>
+          <Property Name="IdDetalleEstadoUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdEstado" Type="Int32" />
+          <Property Name="FechaInicio" Type="DateTime" Precision="3" />
+          <Property Name="FechaFIN" Type="DateTime" Precision="3" />
+          <Property Name="idUsuario" Type="Int32" />
+          <NavigationProperty Name="Estado" Relationship="FerreteriaDBModel.fk_estadoU" FromRole="DetalleEstadoUsuario" ToRole="Estado" />
+          <NavigationProperty Name="USUARIO_LOGIN" Relationship="FerreteriaDBModel.fk_estadoUsuario" FromRole="DetalleEstadoUsuario" ToRole="USUARIO_LOGIN" />
+        </EntityType>
+        <EntityType Name="DetalleRole">
+          <Key>
+            <PropertyRef Name="Id_DetalleRoles" />
+          </Key>
+          <Property Name="Id_DetalleRoles" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdUsuario" Type="Int32" />
+          <Property Name="FechaMOD" Type="DateTime" Precision="0" />
+          <Property Name="IdRoles" Type="Int32" />
+          <NavigationProperty Name="USUARIO_LOGIN" Relationship="FerreteriaDBModel.fk_Roles" FromRole="DetalleRole" ToRole="USUARIO_LOGIN" />
+          <NavigationProperty Name="Role" Relationship="FerreteriaDBModel.fk_RolesU" FromRole="DetalleRole" ToRole="Roles" />
+        </EntityType>
+        <Association Name="fk_estado">
+          <End Type="FerreteriaDBModel.Estado" Role="Estado" Multiplicity="0..1" />
+          <End Type="FerreteriaDBModel.DetalleEstado" Role="DetalleEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DetalleEstado">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estadoemp">
+          <End Type="FerreteriaDBModel.Empleado" Role="Empleado" Multiplicity="0..1" />
+          <End Type="FerreteriaDBModel.DetalleEstado" Role="DetalleEstado" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="IdEmpleado" />
+            </Principal>
+            <Dependent Role="DetalleEstado">
+              <PropertyRef Name="idEmpleado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estadoU">
+          <End Type="FerreteriaDBModel.Estado" Role="Estado" Multiplicity="0..1" />
+          <End Type="FerreteriaDBModel.DetalleEstadoUsuario" Role="DetalleEstadoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estado">
+              <PropertyRef Name="IdEstado" />
+            </Principal>
+            <Dependent Role="DetalleEstadoUsuario">
+              <PropertyRef Name="IdEstado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_estadoUsuario">
+          <End Type="FerreteriaDBModel.USUARIO_LOGIN" Role="USUARIO_LOGIN" Multiplicity="0..1" />
+          <End Type="FerreteriaDBModel.DetalleEstadoUsuario" Role="DetalleEstadoUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO_LOGIN">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DetalleEstadoUsuario">
+              <PropertyRef Name="idUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_Roles">
+          <End Type="FerreteriaDBModel.USUARIO_LOGIN" Role="USUARIO_LOGIN" Multiplicity="0..1" />
+          <End Type="FerreteriaDBModel.DetalleRole" Role="DetalleRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="USUARIO_LOGIN">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="DetalleRole">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_RolesU">
+          <End Type="FerreteriaDBModel.Roles" Role="Roles" Multiplicity="0..1" />
+          <End Type="FerreteriaDBModel.DetalleRole" Role="DetalleRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Roles">
+              <PropertyRef Name="IdRoles" />
+            </Principal>
+            <Dependent Role="DetalleRole">
+              <PropertyRef Name="IdRoles" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1005,6 +1239,39 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="UserPassword" FunctionName="FerreteriaDBModel.Store.UserPassword" />
+          <EntitySetMapping Name="DetalleEstadoes">
+            <EntityTypeMapping TypeName="FerreteriaDBModel.DetalleEstado">
+              <MappingFragment StoreEntitySet="DetalleEstado">
+                <ScalarProperty Name="idEmpleado" ColumnName="idEmpleado" />
+                <ScalarProperty Name="FechaFIN" ColumnName="FechaFIN" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="idDetalleEstado" ColumnName="idDetalleEstado" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleEstadoUsuarios">
+            <EntityTypeMapping TypeName="FerreteriaDBModel.DetalleEstadoUsuario">
+              <MappingFragment StoreEntitySet="DetalleEstadoUsuario">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="FechaFIN" ColumnName="FechaFIN" />
+                <ScalarProperty Name="FechaInicio" ColumnName="FechaInicio" />
+                <ScalarProperty Name="IdEstado" ColumnName="IdEstado" />
+                <ScalarProperty Name="IdDetalleEstadoUsuario" ColumnName="IdDetalleEstadoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DetalleRoles">
+            <EntityTypeMapping TypeName="FerreteriaDBModel.DetalleRole">
+              <MappingFragment StoreEntitySet="DetalleRoles">
+                <ScalarProperty Name="IdRoles" ColumnName="IdRoles" />
+                <ScalarProperty Name="FechaMOD" ColumnName="FechaMOD" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+                <ScalarProperty Name="Id_DetalleRoles" ColumnName="Id_DetalleRoles" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1019,7 +1286,7 @@ error 6004: Una relación hace referencia a la tabla 'FerreteriaDB.dbo.DetalleRo
     <Options>
       <DesignerInfoPropertySet>
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
-        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
         <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />

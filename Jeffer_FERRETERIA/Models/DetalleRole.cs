@@ -12,18 +12,14 @@ namespace Jeffer_FERRETERIA.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Roles
+    public partial class DetalleRole
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Roles()
-        {
-            this.DetalleRoles = new HashSet<DetalleRole>();
-        }
+        public int Id_DetalleRoles { get; set; }
+        public Nullable<int> IdUsuario { get; set; }
+        public Nullable<System.DateTime> FechaMOD { get; set; }
+        public Nullable<int> IdRoles { get; set; }
     
-        public int IdRoles { get; set; }
-        public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DetalleRole> DetalleRoles { get; set; }
+        public virtual USUARIO_LOGIN USUARIO_LOGIN { get; set; }
+        public virtual Roles Role { get; set; }
     }
 }

@@ -14,11 +14,22 @@ namespace Jeffer_FERRETERIA.Models
     
     public partial class USUARIO_LOGIN
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public USUARIO_LOGIN()
+        {
+            this.DetalleEstadoUsuarios = new HashSet<DetalleEstadoUsuario>();
+            this.DetalleRoles = new HashSet<DetalleRole>();
+        }
+    
         public int IdUsuario { get; set; }
         public string Usuario { get; set; }
         public string Contraseña { get; set; }
         public Nullable<int> idPersona { get; set; }
     
         public virtual Persona Persona { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleEstadoUsuario> DetalleEstadoUsuarios { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleRole> DetalleRoles { get; set; }
     }
 }

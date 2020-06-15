@@ -14,7 +14,19 @@ namespace Jeffer_FERRETERIA.Models
     
     public partial class Estado
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Estado()
+        {
+            this.DetalleEstadoes = new HashSet<DetalleEstado>();
+            this.DetalleEstadoUsuarios = new HashSet<DetalleEstadoUsuario>();
+        }
+    
         public int IdEstado { get; set; }
         public string Estado1 { get; set; }
+    
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleEstado> DetalleEstadoes { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleEstadoUsuario> DetalleEstadoUsuarios { get; set; }
     }
 }

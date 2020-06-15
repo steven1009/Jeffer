@@ -34,6 +34,15 @@
         <AssociationConnector Association="FerreteriaDBModel.FK__USUARIO_L__idPer__619B8048" ManuallyRouted="false" />
         <AssociationConnector Association="FerreteriaDBModel.fk_Persona" ManuallyRouted="false" />
         <AssociationConnector Association="FerreteriaDBModel.fk_Proveedores" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="FerreteriaDBModel.DetalleEstado" Width="1.5" PointX="9" PointY="8.25" />
+        <EntityTypeShape EntityType="FerreteriaDBModel.DetalleEstadoUsuario" Width="1.5" PointX="9" PointY="11.875" />
+        <EntityTypeShape EntityType="FerreteriaDBModel.DetalleRole" Width="1.5" PointX="9" PointY="15" />
+        <AssociationConnector Association="FerreteriaDBModel.fk_estado" />
+        <AssociationConnector Association="FerreteriaDBModel.fk_estadoemp" />
+        <AssociationConnector Association="FerreteriaDBModel.fk_estadoU" />
+        <AssociationConnector Association="FerreteriaDBModel.fk_estadoUsuario" />
+        <AssociationConnector Association="FerreteriaDBModel.fk_Roles" />
+        <AssociationConnector Association="FerreteriaDBModel.fk_RolesU" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

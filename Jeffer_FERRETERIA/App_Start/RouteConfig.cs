@@ -18,6 +18,11 @@ namespace Jeffer_FERRETERIA
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "LOGIN",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "USUARIO_LOGIN", action = "Login", id = UrlParameter.Optional }
+            );
         }
     }
 }

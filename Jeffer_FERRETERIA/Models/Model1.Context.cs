@@ -12,6 +12,8 @@ namespace Jeffer_FERRETERIA.Models
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
+    using System.Data.Entity.Core.Objects;
+    using System.Linq;
     
     public partial class FerreteriaDBEntities : DbContext
     {
@@ -40,5 +42,21 @@ namespace Jeffer_FERRETERIA.Models
         public virtual DbSet<TipoPago> TipoPago { get; set; }
         public virtual DbSet<USUARIO_LOGIN> USUARIO_LOGIN { get; set; }
         public virtual DbSet<Ventas> Ventas { get; set; }
+        public virtual DbSet<DetalleEstado> DetalleEstadoes { get; set; }
+        public virtual DbSet<DetalleEstadoUsuario> DetalleEstadoUsuarios { get; set; }
+        public virtual DbSet<DetalleRole> DetalleRoles { get; set; }
+    
+        public virtual ObjectResult<Nullable<int>> UserPassword(string usuario, string password)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(string));
+    
+            var passwordParameter = password != null ?
+                new ObjectParameter("password", password) :
+                new ObjectParameter("password", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<Nullable<int>>("UserPassword", usuarioParameter, passwordParameter);
+        }
     }
 }

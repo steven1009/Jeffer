@@ -18,6 +18,7 @@ namespace Jeffer_FERRETERIA.Models
         public Empleado()
         {
             this.Ventas = new HashSet<Ventas>();
+            this.DetalleEstadoes = new HashSet<DetalleEstado>();
         }
     
         public int IdEmpleado { get; set; }
@@ -28,5 +29,7 @@ namespace Jeffer_FERRETERIA.Models
         public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Ventas> Ventas { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DetalleEstado> DetalleEstadoes { get; set; }
     }
 }
