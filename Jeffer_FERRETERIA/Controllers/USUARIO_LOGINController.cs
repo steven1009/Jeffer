@@ -15,13 +15,14 @@ namespace Jeffer_FERRETERIA.Controllers
 {
     public class USUARIO_LOGINController : Controller
     {
+        private const string ConnectionString = "Data Source=*;integrated Security=sspi;initial catalog=FERRETERIADB;";
         private FerreteriaDBEntities db = new FerreteriaDBEntities();
 
         // GET: USUARIO_LOGIN
         public ActionResult Index()
         {
-            var uSUARIO_LOGIN = db.USUARIO_LOGIN.Include(u => u.Persona);
-            return View(uSUARIO_LOGIN.ToList());
+            var Login = db.USUARIO_LOGIN.Include(u => u.Persona);
+            return View(Login.ToList());
         }
 
         // GET: USUARIO_LOGIN/Details/5
@@ -58,7 +59,7 @@ namespace Jeffer_FERRETERIA.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DataTable dt = new DataTable();
-            SqlConnection PubsConn = new SqlConnection("Data Source=DESKTOP-FKU2C7A;integrated Security=sspi;initial catalog=FERRETERIADB;");
+            SqlConnection PubsConn = new SqlConnection(ConnectionString);
             SqlCommand testCMD = new SqlCommand("UserPassword", PubsConn);
             PubsConn.Open();
             testCMD.CommandType = CommandType.StoredProcedure;
