@@ -89,6 +89,16 @@ namespace Jeffer_FERRETERIA
                 defaults: new { controller = "Proveedores", action = "Create", id = UrlParameter.Optional }
             );
             routes.MapRoute(
+                name: "Producto",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Productoes", action = "Index", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
+                name: "ProductoAdd",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Productoes", action = "Create", id = UrlParameter.Optional }
+            );
+            routes.MapRoute(
                 name: "Roles",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Roles", action = "Index", id = UrlParameter.Optional }
