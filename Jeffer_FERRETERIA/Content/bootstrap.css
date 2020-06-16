@@ -1097,7 +1097,7 @@ textarea {
   line-height: inherit;
 }
 a {
-  color: #337ab7;
+  color: black;
   text-decoration: none;
 }
 a:hover,
@@ -4080,7 +4080,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav .open > a:hover,
 .nav .open > a:focus {
   background-color: #eeeeee;
-  border-color: #337ab7;
+  border-color: black;
 }
 .nav .nav-divider {
   height: 1px;
@@ -6831,4 +6831,72 @@ button.close {
     display: none !important;
   }
 }
+* {
+    margin: 0;
+    padding: 0;
+    border: o none;
+    position: relative;
+}
+/*
+    *, *:before, *:after {
+        box-sizing: inherit;
+    }
+
+html {
+    box-sizing: border-box;
+    background: #eee;
+}
+
+#menu_gral {
+    font-family: verdana, sans sherif;
+    width: 20vw;
+    margin: 0 1rem;
+}
+
+    #menu_gral ul {
+        box-shadow: 0 0 3px rgba(0,0,0,.4);
+        list-style-type: none;
+        text-align: center;
+    }
+
+    #menu_gral > ul li {
+        background: #FFf;
+    }
+
+    #menu_gral li a {
+        display: block;
+        text-decoration: none;
+        font-size: 1rem;
+        line-height: 2.5rem;
+        color: #444;
+    }*/
+
+        #menu_gral li:hover a, #menu_gral li a:focus {
+/*            background: #8DA889;*/
+/*            color: #fff;*/
+        }
+
+    #menu_gral li ul {
+        height: 0;
+        overflow: hidden;
+    }
+
+    #menu_gral li:hover ul, #menu_gral li:focus ul {
+        height: auto;
+    }
+
+    #menu_gral li li {
+    }
+
+    #menu_gral li:hover li a, #menu_gral li:focus li a {
+/*        font-family: monospace;*/
+/*        font-size: .9rem;*/
+        line-height: 1.7rem;
+        border-top: 1px solid #e5e5e5;
+/*        background: #444;*/
+    }
+
+    #menu_gral li li a:hover, #menu_gral li li a:focus {
+/*        background: #8AA9B8;*/
+    }
 /*# sourceMappingURL=bootstrap.css.map */
