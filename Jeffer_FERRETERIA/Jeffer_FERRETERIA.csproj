@@ -230,7 +230,6 @@
     <Content Include="Content\jquery\jquery.min.js" />
     <Content Include="Content\js\alertify.js" />
     <Content Include="Content\js\alertify.min.js" />
-    <Content Include="Content\js\Categoria.js" />
     <Content Include="Content\js\modernizr-2.6.2.js" />
     <Content Include="Content\js\sb-admin-2.js" />
     <Content Include="Content\js\sb-admin-2.min.js" />
