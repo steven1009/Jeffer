@@ -1,0 +1,42 @@
+﻿@model Jeffer_FERRETERIA.Models.proveedores
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>proveedores</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TipoProveedor)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TipoProveedor)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdDetalleProvProd)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdDetalleProvProd)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdProveedores }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
