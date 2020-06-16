@@ -1,6 +1,4 @@
-﻿@{
-    ViewBag.Title = "_LayoutMy";
-}
+﻿
 <!DOCTYPE html>
 <html>
 <head>
@@ -242,7 +240,9 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="~/Js/sb-admin-2.js"></script>
-
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 
 </body>
 </html>

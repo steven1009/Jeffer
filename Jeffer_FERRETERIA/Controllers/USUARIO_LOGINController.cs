@@ -15,9 +15,8 @@ namespace Jeffer_FERRETERIA.Controllers
 {
     public class USUARIO_LOGINController : Controller
     {
-        private const string ConnectionString = "Data Source=*;integrated Security=sspi;initial catalog=FERRETERIADB;";
-        private FerreteriaDBEntities db = new FerreteriaDBEntities();
 
+        private FerreteriaDBEntities db = new FerreteriaDBEntities();
         // GET: USUARIO_LOGIN
         public ActionResult Index()
         {
@@ -58,8 +57,8 @@ namespace Jeffer_FERRETERIA.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            DataTable dt = new DataTable();
-            SqlConnection PubsConn = new SqlConnection(ConnectionString);
+            DataTable dt = new DataTable();        
+            SqlConnection PubsConn = new SqlConnection("Data Source=DESKTOP-FKU2C7A;integrated Security=sspi;initial catalog=FERRETERIADB;");
             SqlCommand testCMD = new SqlCommand("UserPassword", PubsConn);
             PubsConn.Open();
             testCMD.CommandType = CommandType.StoredProcedure;
@@ -81,7 +80,7 @@ namespace Jeffer_FERRETERIA.Controllers
         // GET: USUARIO_LOGIN/Create
         public ActionResult Create()
         {
-            ViewBag.idPersona = new SelectList(db.Persona, "Persona1", "Cedula");
+            ViewBag.idPersona = new SelectList(db.Persona, "Persona1", "Nombre");
             return View();
         }
 
@@ -99,7 +98,7 @@ namespace Jeffer_FERRETERIA.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.idPersona = new SelectList(db.Persona, "Persona1", "Cedula", uSUARIO_LOGIN.idPersona);
+            ViewBag.idPersona = new SelectList(db.Persona, "Persona1", "Nombre", uSUARIO_LOGIN.idPersona);
             return View(uSUARIO_LOGIN);
         }
 
