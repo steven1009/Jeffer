@@ -133,6 +133,11 @@ namespace Jeffer_FERRETERIA
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Ventas", action = "Create", id = UrlParameter.Optional }
             );
+            routes.MapRoute(
+                name: "Inicio",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+            );
         }
     }
 }

@@ -37,10 +37,10 @@ namespace Jeffer_FERRETERIA.Controllers
             }
             return View(uSUARIO_LOGIN);
         }
-
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
+            Session["id"] = "0";
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
@@ -50,7 +50,7 @@ namespace Jeffer_FERRETERIA.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(String usuario, String contraseña)
+        public ActionResult Login(String usuario, String contraseña, string returnUrl)
         {
             if (usuario.IsNullOrWhiteSpace() | contraseña.IsNullOrWhiteSpace())
             {
@@ -64,16 +64,28 @@ namespace Jeffer_FERRETERIA.Controllers
             testCMD.Parameters.AddWithValue("@usuario", usuario);
             testCMD.Parameters.AddWithValue("@password", contraseña);
             USUARIO_LOGIN uSUARIO_LOGIN = db.USUARIO_LOGIN.Find(testCMD.ExecuteScalar());
+            var result = false;
             if (uSUARIO_LOGIN == null)
             {
                 PubsConn.Close();
                 return HttpNotFound();
             }
+            Session["id"] = uSUARIO_LOGIN.IdUsuario;
+            result = true;
+            switch (result)
+            {
+                case true:
+                    returnUrl = uSUARIO_LOGIN.idPersona.ToString();
+                    PubsConn.Close();
+                    return RedirectToAction("Index","Home", new { ReturnUrl = returnUrl });
+                case false:
+                    PubsConn.Close();
+                    return View("Login", "USUARIO_LOGIN", new { ReturnUrl = returnUrl });
+                default:
+                    PubsConn.Close();
+                    return View(uSUARIO_LOGIN);
+            }
 
-            PubsConn.Close();
-
-            return Redirect("/Home/Index/"+ uSUARIO_LOGIN.IdUsuario.ToString());
-            
 
 
         }
