@@ -8,7 +8,7 @@
 {
     @Html.AntiForgeryToken()
 
-
+    
     <div class="form-horizontal">
         @using (Html.BeginForm("Login", "usuario_login", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {

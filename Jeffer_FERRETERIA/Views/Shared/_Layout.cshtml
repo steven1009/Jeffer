@@ -18,25 +18,33 @@
     </head>
     <body>
         @Html.Partial("_LoginPartial")
-        <div id="page-wrapper" >
+        @if (!Session["id"].ToString().Equals("0"))
+        {
+            <div id="page-wrapper">
 
-                    @RenderBody()
+                @RenderBody()
 
-             
+
                 <footer>
                     <p>&copy; @DateTime.Now.Year - Ferreteria ProMAX</p>
                 </footer>
-        </div>
-        
-             <script src="~/Content/menu/metisMenu.min.js"></script>
- 
-    <script src="~/Content/morrisjs/morris.min.js"></script>
-    <script src="~/Content/js/sb-admin-2.min.js"></script>
-    <script src="~/Content/jquery/jquery.min.js"></script>
+            </div>
+        }
+        else
+        {
+                @RenderBody()
+        }
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
+        <script src="~/Content/menu/metisMenu.min.js"></script>
+
+        <script src="~/Content/morrisjs/morris.min.js"></script>
+        <script src="~/Content/js/sb-admin-2.min.js"></script>
+        <script src="~/Content/jquery/jquery.min.js"></script>
+
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")
+        @RenderSection("scripts", required: false)
 
     </body>
     </html>
