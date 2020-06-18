@@ -57,7 +57,7 @@ namespace Jeffer_FERRETERIA.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DataTable dt = new DataTable();        
-            SqlConnection PubsConn = new SqlConnection("Data Source=DESKTOP-FKU2C7A;integrated Security=sspi;initial catalog=FERRETERIADB;");
+            SqlConnection PubsConn = new SqlConnection("Data Source=DESKTOP-48V98DF;integrated Security=sspi;initial catalog=FERRETERIADB;");
             SqlCommand testCMD = new SqlCommand("UserPassword", PubsConn);
             PubsConn.Open();
             testCMD.CommandType = CommandType.StoredProcedure;
