@@ -16,6 +16,7 @@ namespace Jeffer_FERRETERIA.Controllers
     {
 
         private FerreteriaDBEntities db = new FerreteriaDBEntities();
+
         // GET: USUARIO_LOGIN
         public ActionResult Index()
         {
@@ -40,9 +41,21 @@ namespace Jeffer_FERRETERIA.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            Session["id"] = "0";
-            ViewBag.ReturnUrl = returnUrl;
-            return View();
+            if(Session["id"]==null)
+            {
+                Session["id"] = "0";
+                ViewBag.ReturnUrl = returnUrl;
+                return View();
+            }else if(!Session["id"].ToString().Equals("0"))
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                return RedirectToAction("Index", "Home");
+            }
+            else 
+            {
+                ViewBag.ReturnUrl = returnUrl;
+                return RedirectToAction("Login", "Usuario_login");
+            }
         }
 
         //
@@ -57,7 +70,7 @@ namespace Jeffer_FERRETERIA.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             DataTable dt = new DataTable();        
-            SqlConnection PubsConn = new SqlConnection("Data Source=DESKTOP-48V98DF;integrated Security=sspi;initial catalog=FERRETERIADB;");
+            SqlConnection PubsConn = new SqlConnection("Data Source=DESKTOP-FKU2C7A;integrated Security=sspi;initial catalog=FERRETERIADB;");
             SqlCommand testCMD = new SqlCommand("UserPassword", PubsConn);
             PubsConn.Open();
             testCMD.CommandType = CommandType.StoredProcedure;
